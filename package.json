@@ -25,6 +25,7 @@
     "postcss": "^7.0.38",
     "sirv-cli": "^1.0.0",
     "svelte-navigator": "^3.1.5",
+    "svelte-persistent-store": "^0.1.6",
     "svelte-preprocess": "^4.9.7",
     "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.2.16"
   }

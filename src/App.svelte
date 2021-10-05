@@ -7,7 +7,7 @@
 	//navigate("/signin", {replace: true});
 </script>
 
-<html data-theme="dark" lang="">
+<html data-theme="light" lang="">
 	<Router>
 		<Link to="/main">Main</Link>
 		<Link to="/signin">SignIn</Link>
