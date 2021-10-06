@@ -3,8 +3,14 @@
 	import SignIn from './components/User/SignIn.svelte';
 	import SignUp from './components/User/SignUp.svelte';
 	import Main from './components/Home/Main.svelte';
+	import {userToken} from './Store/store';
 
-	//navigate("/signin", {replace: true});
+	// if($userToken.token != null){
+	// 	navigate("/main", {replace: true});
+	// }else{
+	// 	navigate("/signin", {replace: true});
+	// }
+	//
 </script>
 
 <html data-theme="light" lang="">

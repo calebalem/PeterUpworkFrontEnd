@@ -1,16 +1,17 @@
-import axois from "axios";
-import {userToken} from "../../Store/store"
-
+import {userToken} from "../../Store/store";
+import {get as getResult } from 'svelte/store';
+import  axios from 'axios';
 const axiosAPI = axios.create({
     baseURL: "http://localhost:5000/api"
 });
 
 const apiRequest = async (method, url, request) => {
+    let auth = "Bearer " + getResult(userToken).token
     const headers = {
-        authorization: "Bearer " + userToken
+        authorization: auth
     };
     try {
-        const data = await axiosAPI({ method, url, data: request, headers });
+        const data = await axiosAPI({ method, url,data : request, headers });
         return data;
     } catch (err) {
         return err;
@@ -18,7 +19,7 @@ const apiRequest = async (method, url, request) => {
 
 }
 
-const get = (url, data) => apiRequest("get", url, request);
+const get = (url, request) => apiRequest("get", url, request);
 
 const deleteRequest = (url, request) =>  apiRequest("delete", url, request);
 
