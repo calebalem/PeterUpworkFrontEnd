@@ -16,14 +16,14 @@
         let userData = await getUser(data);
         user.set(userData);
 
-        if($userToken.token != null && $user.userId != null ){
+        if($userToken.token !== null && $user.userId !== null ){
             navigate("/main", {replace: true});
         }
         console.log($userToken.token)
         console.log($user);
     }
 </script>
-
+<Router>
 <div class="flex justify-center  items-center h-screen">
     <div class="artboard phone-1 horizontal artboard-demo">
         <div class="form-control">
@@ -51,8 +51,9 @@
                 <button class="btn btn-sm btn-primary" on:click={handleLogin}>Login</button>
             </div>
             <div class="form-control">
-                <a class="link link-accent">Don't have an account Sign Up here</a>
+                <a class="link link-accent"><Link to="/signup">Don't have an account Sign Up here</Link></a>
             </div>
         </div>
     </div>
 </div>
+</Router>

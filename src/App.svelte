@@ -18,7 +18,7 @@
 		<Link to="/main">Main</Link>
 		<Link to="/signin">SignIn</Link>
 		<main>
-			<Route path="signin">
+			<Route path="/signin">
 				<SignIn/>
 			</Route>
 			<Route path="/main/*">
