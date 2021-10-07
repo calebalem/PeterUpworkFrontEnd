@@ -28,7 +28,7 @@
                     <input
                         type="text"
                         placeholder="Search"
-                        class="input input-ghost"
+                        class="input input-primary input-bordered"
                     />
                 </div>
             </div>

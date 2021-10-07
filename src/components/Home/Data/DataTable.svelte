@@ -4,7 +4,7 @@
 
 
 <div class="overflow-x-auto ">
-    <table class=" shadow-lg table w-full ">
+    <table class=" shadow-lg table w-full text-base-content">
       <thead>
         <tr>
           <th>
