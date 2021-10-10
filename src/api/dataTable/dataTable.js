@@ -26,3 +26,12 @@ export const getTables = async(req) => {
         console.error(err);
     }
 }
+
+export const getTableData = async(req) => {
+    try{
+        const response = await Api.post("/table/getData",req)
+        return response.data
+    }catch(err){
+        console.error(err);
+    }
+}

@@ -1,169 +1,104 @@
 <script>
+  import { getTableData, addTableData } from "../../../api/dataTable/dataTable";
+  import {
+    user,
+    selectedTable,
+    tableData,
+    tableNames,
+  } from "../../../Store/store";
 
+  $: {
+    if ($selectedTable !== "") {
+      let data = {
+        id: $user[0].id,
+        tableName: $selectedTable,
+      };
+      getTableData(data).then((value) => {
+        tableData.set(value);
+        //console.log($tableData);
+      });
+    }
+  }
+  function log() {
+    console.log("real", $tableData);
+  }
+
+  function update() {
+    let data = {
+      userId: $user[0].id,
+      tableName: $selectedTable,
+      tableHeaders: $tableData.columnNames,
+      tableDataTypes: $tableData.columnTypes,
+      tableDatas: $tableData.tableData,
+    };
+    console.log("update check", data);
+    addTableData(data).then((value) => {
+      console.log("update", value);
+    });
+  }
+
+  function addRow() {
+    let newRow = [];
+    for (let i = 0; i < $tableData.columnNames.length; i++) {
+        newRow.push("");
+    }
+    $tableData.tableData.push(newRow)
+    tableData.set($tableData);
+  }
 </script>
 
-
-<div class="overflow-x-auto ">
-    <table class=" shadow-lg table w-full text-base-content">
+{#if $tableData.length !== 0}
+  <div class="overflow-auto  shadow-lg max-h-96 h-96">
+    <table class="table w-full text-base-content table-zebra ">
       <thead>
         <tr>
           <th>
             <label>
-              <input type="checkbox" class="checkbox">
+              <input type="checkbox" class="checkbox" />
             </label>
-          </th> 
-          <th>Name</th> 
-          <th>Job</th> 
-          <th>Favorite Color</th> 
-          <th></th>
+          </th>
+
+          {#each $tableData.columnNames as tableHeader}
+            <th>{tableHeader}</th>
+          {/each}
         </tr>
-      </thead> 
+      </thead>
       <tbody>
-        <tr>
-          <th>
-            <label>
-              <input type="checkbox" class="checkbox">
-            </label>
-          </th> 
-          <td>
-            <div class="flex items-center space-x-3">
-              <div class="avatar">
-                <div class="w-12 h-12 mask mask-squircle">
-                  <img src="/tailwind-css-component-profile-2@56w.png" alt="Avatar Tailwind CSS Component">
-                </div>
-              </div> 
-              <div>
-                <div class="font-bold">
-                      Hart Hagerty
-                    </div> 
-                <div class="text-sm ">
-                      United States
-                    </div>
-              </div>
-            </div>
-          </td> 
-          <td>
-              Zemlak, Daniel and Leannon
-              
-            <br> 
-            <span class="badge badge-outline badge-sm">Desktop Support Technician</span>
-          </td> 
-          <td>Purple</td> 
-          <th>
-            <button class="btn btn-ghost btn-xs">details</button>
-          </th>
-        </tr>
-        <tr>
-          <th>
-            <label>
-              <input type="checkbox" class="checkbox">
-            </label>
-          </th> 
-          <td>
-            <div class="flex items-center space-x-3">
-              <div class="avatar">
-                <div class="w-12 h-12 mask mask-squircle">
-                  <img src="/tailwind-css-component-profile-3@56w.png" alt="Avatar Tailwind CSS Component">
-                </div>
-              </div> 
-              <div>
-                <div class="font-bold">
-                      Brice Swyre
-                    </div> 
-                <div class="text-sm opacity-50">
-                      China
-                    </div>
-              </div>
-            </div>
-          </td> 
-          <td>
-              Carroll Group
-              
-            <br> 
-            <span class="badge badge-outline badge-sm">Tax Accountant</span>
-          </td> 
-          <td>Red</td> 
-          <th>
-            <button class="btn btn-ghost btn-xs">details</button>
-          </th>
-        </tr>
-        <tr>
-          <th>
-            <label>
-              <input type="checkbox" class="checkbox">
-            </label>
-          </th> 
-          <td>
-            <div class="flex items-center space-x-3">
-              <div class="avatar">
-                <div class="w-12 h-12 mask mask-squircle">
-                  <img src="/tailwind-css-component-profile-4@56w.png" alt="Avatar Tailwind CSS Component">
-                </div>
-              </div> 
-              <div>
-                <div class="font-bold">
-                      Marjy Ferencz
-                    </div> 
-                <div class="text-sm opacity-50">
-                      Russia
-                    </div>
-              </div>
-            </div>
-          </td> 
-          <td>
-              Rowe-Schoen
-              
-            <br> 
-            <span class="badge badge-outline badge-sm">Office Assistant I</span>
-          </td> 
-          <td>Crimson</td> 
-          <th>
-            <button class="btn btn-ghost btn-xs">details</button>
-          </th>
-        </tr>
-        <tr>
-          <th>
-            <label>
-              <input type="checkbox" class="checkbox">
-            </label>
-          </th> 
-          <td>
-            <div class="flex items-center space-x-3">
-              <div class="avatar">
-                <div class="w-12 h-12 mask mask-squircle">
-                  <img src="/tailwind-css-component-profile-5@56w.png" alt="Avatar Tailwind CSS Component">
-                </div>
-              </div> 
-              <div>
-                <div class="font-bold">
-                      Yancy Tear
-                    </div> 
-                <div class="text-sm opacity-50">
-                      Brazil
-                    </div>
-              </div>
-            </div>
-          </td> 
-          <td>
-              Wyman-Ledner
-              
-            <br> 
-            <span class="badge badge-outline badge-sm">Community Outreach Specialist</span>
-          </td> 
-          <td>Indigo</td> 
-          <th>
-            <button class="btn btn-ghost btn-xs">details</button>
-          </th>
-        </tr>
-      </tbody> 
+        {#each $tableData.tableData as tableRow}
+          <tr>
+            <th>
+              <label>
+                <input type="checkbox" class="checkbox" />
+              </label>
+            </th>
+            {#each tableRow as tableCell}
+              <td
+                ><input
+                  type="text"
+                  class="input input-bordered input-sm"
+                  bind:value={tableCell}
+                  on:change={log}
+                /></td
+              >
+            {/each}
+          </tr>
+        {/each}
+      </tbody>
       <tfoot>
         <tr>
-          <th></th> 
-          <th>Name</th> 
-          <th>Job</th> 
-          <th>Favorite Color</th> 
-          <th></th>
+          <th>
+            <label>
+              <input type="checkbox" class="checkbox" />
+            </label>
+          </th>
+
+          {#each $tableData.columnNames as tableHeader}
+            <th>{tableHeader}</th>
+          {/each}
         </tr>
       </tfoot>
     </table>
   </div>
+  <button class="btn btn-primary m-2" on:click={update}>Update</button>
+  <button class="btn btn-primary m-2" on:click={addRow}>Add</button>
+{/if}

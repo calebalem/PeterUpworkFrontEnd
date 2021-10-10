@@ -2,8 +2,9 @@
     import Table24 from "carbon-icons-svelte/lib/Table24"
     import AddFilled16 from "carbon-icons-svelte/lib/AddFilled16";
     import  TrashCan16  from "carbon-icons-svelte/lib/TrashCan16";
-    import {tableNames, user} from "../../../Store/store";
+    import {tableNames, user, selectedTable} from "../../../Store/store";
     import {createTable} from "../../../api/dataTable/dataTable";
+
 
     let tableSchemes = [{columnName:"",columnType:"INT"}]
     let tableName;
@@ -33,7 +34,7 @@
       console.log(data);
       let response = await createTable(data);
       if(response.status === 200){
-
+          tableNames.set([...tableNames,tableName])
       }else{
 
       }
@@ -45,10 +46,10 @@
     }
 </script>
 
-    <ul class=" shadow-lg bg-base-100 rounded-box px-5 flex flex-col items-center">
-      <li class="menu-title flex flex-row">
-          <Table24 class="m-1 "/>
-           <span class="m-1 text-base-content">Tables</span>   
+    <ul class=" shadow-lg bg-base-100 rounded-box px-2 flex flex-col h-96 mx-1">
+      <li class="menu-title flex flex-row shadow-lg rounded-box">
+          <Table24 class="m-1 flex-shrink"/>
+           <span class="m-1 text-base-content flex-shrink">Tables</span>   
           <label for="add-table-modal" class="btn btn-outline btn-primary btn-xs m-1 modal-button"> <AddFilled16/> </label>
           <button class="btn btn-outline btn-primary btn-xs m-1"> <TrashCan16/> </button>
            
@@ -56,7 +57,7 @@
       {#each $tableNames as tableName}
       <li class="my-3">
        <input type="checkbox m-1" checked="checked" class="checkbox"/>
-       <span class="text-base-content">{tableName}</span>
+       <label class="text-base-content link link-hover" on:click={(event)=>selectedTable.set(event.target.textContent)}>{tableName}</label>
       </li>
       {/each}
     </ul> 
@@ -72,8 +73,8 @@
               <input type = "text" placeholder="Column Name" class="input input-primary input-bordered col-span-5 " bind:value={tableScheme.columnName}>
               <select class="select select-bordered select-primary w-full max-w-xs col-span-5" bind:value={tableScheme.columnType} >
                 <option selected value="INT">Integer</option>
-                <option value="VARCHAR(255)">Text</option>
-                <option value="FLOAT">Decimal</option>
+                <option value="text">Text</option>
+                <option value="decimal">Decimal</option>
               </select>
               <button class="btn btn-outline btn-primary col-span-2" on:click={addColumn}><AddFilled16/></button>
           {/each}
