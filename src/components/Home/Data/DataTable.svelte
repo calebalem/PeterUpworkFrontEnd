@@ -6,6 +6,8 @@
     tableData,
     tableNames,
   } from "../../../Store/store";
+  import Toast from '../../Alert/Toast.svelte';
+  import {notifications} from "../../Alert/notifications.js"; 
 
   $: {
     if ($selectedTable !== "") {
@@ -34,6 +36,7 @@
     console.log("update check", data);
     addTableData(data).then((value) => {
       console.log("update", value);
+      notifications.info("Table Updated",3000);
     });
   }
 
@@ -48,7 +51,9 @@
 </script>
 
 {#if $tableData.length !== 0}
+
   <div class="overflow-auto  shadow-lg max-h-96 h-96">
+    <Toast/>
     <table class="table w-full text-base-content table-zebra ">
       <thead>
         <tr>
