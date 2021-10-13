@@ -3,7 +3,7 @@ import {writable as localWritable, readable as localReadable, derived as localDe
 
 export const userToken = localWritable('token',"");
 
-export const user = localWritable({});
+export const user = localWritable('user',{});
 
 export const tableNames = writable([]);
 

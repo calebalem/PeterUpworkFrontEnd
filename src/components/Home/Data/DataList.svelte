@@ -46,7 +46,7 @@
     }
 </script>
 
-    <ul class=" shadow-lg bg-base-100 rounded-box px-2 flex flex-col h-96 mx-1">
+    <ul class=" shadow-lg bg-base-100 rounded-box px-2 flex flex-col h-96 mx-1 text-base-content">
       <li class="menu-title flex flex-row shadow-lg rounded-box">
           <Table24 class="m-1 flex-shrink"/>
            <span class="m-1 text-base-content flex-shrink">Tables</span>   
@@ -56,7 +56,7 @@
       </li> 
       {#each $tableNames as tableName}
       <li class="my-3">
-       <input type="checkbox m-1" checked="checked" class="checkbox"/>
+       <input type="checkbox" checked="checked" class="checkbox checkbox-sm"/>
        <label class="text-base-content link link-hover" on:click={(event)=>selectedTable.set(event.target.textContent)}>{tableName}</label>
       </li>
       {/each}

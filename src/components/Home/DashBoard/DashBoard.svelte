@@ -1,7 +1,19 @@
-<style>
+<script>
 
-</style>
-
-<div>
-    <h1 class="text-red-500">DashBoard</h1>
-</div>
+</script>
+<div class="flex flex-col  justify-center ">
+<div class="card shadow-2xl lg:card-side bg-primary text-primary-content">
+    <div class="card-body">
+      <p>Something Goes here.</p> 
+      <div class="justify-end card-actions">
+        <button class="btn btn-primary">
+              Something
+              
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-6 h-6 ml-2 stroke-current">  
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>                        
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div> 
+  </div>
