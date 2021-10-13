@@ -6,8 +6,7 @@
     tableData,
     tableNames,
   } from "../../../Store/store";
-  import Toast from '../../Alert/Toast.svelte';
-  import {notifications} from "../../Alert/notifications.js"; 
+  import { notifications } from "../../Alert/notifications.js";
 
   $: {
     if ($selectedTable !== "") {
@@ -36,24 +35,22 @@
     console.log("update check", data);
     addTableData(data).then((value) => {
       console.log("update", value);
-      notifications.info("Table Updated",3000);
+      notifications.info("Table Updated", 3000);
     });
   }
 
   function addRow() {
     let newRow = [];
     for (let i = 0; i < $tableData.columnNames.length; i++) {
-        newRow.push("");
+      newRow.push("");
     }
-    $tableData.tableData.push(newRow)
+    $tableData.tableData.push(newRow);
     tableData.set($tableData);
   }
 </script>
 
 {#if $tableData.length !== 0}
-
   <div class="overflow-auto  shadow-lg max-h-96 h-96">
-    <Toast/>
     <table class="table w-full text-base-content table-zebra ">
       <thead>
         <tr>
@@ -76,15 +73,31 @@
                 <input type="checkbox" class="checkbox" />
               </label>
             </th>
-            {#each tableRow as tableCell}
-              <td
-                ><input
-                  type="text"
-                  class="input input-bordered input-sm"
-                  bind:value={tableCell}
-                  on:change={log}
-                /></td
-              >
+            {#each tableRow as tableCell, i}
+              <td>
+                {#if $tableData.columnTypes[i] === "text"}
+                  <input
+                    type="text"
+                    class="input input-bordered input-sm"
+                    bind:value={tableCell}
+                    on:change={log}
+                  />
+                {:else if $tableData.columnTypes[i] === "integer"}
+                  <input
+                    type="number"
+                    class="input input-bordered input-sm"
+                    bind:value={tableCell}
+                    on:change={log}
+                  />
+                {:else}
+                  <input
+                    type="number"
+                    class="input input-bordered input-sm"
+                    bind:value={tableCell}
+                    on:change={log}
+                  />
+                {/if}
+              </td>
             {/each}
           </tr>
         {/each}

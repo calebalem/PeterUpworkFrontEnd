@@ -4,7 +4,6 @@
   import TrashCan16 from "carbon-icons-svelte/lib/TrashCan16";
   import { tableNames, user, selectedTable } from "../../../Store/store";
   import { createTable } from "../../../api/dataTable/dataTable";
-  import Toast from '../../Alert/Toast.svelte';
   import {notifications} from "../../Alert/notifications.js";  
 
 
@@ -36,7 +35,7 @@
     console.log(data);
     let response = await createTable(data);
     tableNames.set([...$tableNames, tableName]);
-    notifications.success('Table created.',3000);
+    notifications.info('Table created.',3000);
   }
 
   function cancel() {
@@ -77,7 +76,6 @@
 <div class="modal text-base-content">
   <div class="modal-box h-50 max-h-96">
     <div class="overflow-y-auto  shadow-lg m-2 p-2">
-      <Toast/>
       <div class="grid grid-cols-12 gap-2">
         <input
           type="text"

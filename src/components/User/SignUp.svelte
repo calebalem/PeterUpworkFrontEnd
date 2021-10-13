@@ -79,7 +79,7 @@
             <button class="btn btn-sm btn-primary" on:click={signup}>Sign Up</button>
         </div>
         <div class="form-control">
-            <a class="link link-accent">Already have an account Login In here</a>
+            <a class="link link-accent"><Link to="/signin">Already have an account Login In here</Link></a>
         </div>
     </div>
 </div>

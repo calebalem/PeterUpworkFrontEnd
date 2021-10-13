@@ -8,6 +8,7 @@
     import MainDataEntry from "./Data/DataEntryMain.svelte";
     import Calander from "./Calander/calander.svelte";
     import { user, userToken } from "../../Store/store";
+    import Toast from "../Alert/Toast.svelte";
 
     let avatarPlaceHolderChar = "G";
     if ($userToken.token !== "" &&  Object.keys($user).length !== 0) {
@@ -17,9 +18,9 @@
     }
 
     function logout(){
+        navigate("/signin", { replace: true });
         user.set({});
         userToken.set("");
-        navigate("/signin", { replace: true });
     }
 </script>
 
@@ -108,6 +109,7 @@
                 </div>
             </div>
         </nav>
+        <Toast/>
 
         <aside>
             <div
